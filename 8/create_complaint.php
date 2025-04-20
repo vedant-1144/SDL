@@ -2,14 +2,14 @@
 include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $conn->real_escape_string($_POST['name']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $complaint = $conn->real_escape_string($_POST['complaint']);
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $complaint = $_POST['complaint'];
 
     $sql = "INSERT INTO complaints (name, email, complaint, status, created_at) VALUES ('$name', '$email', '$complaint', 'Pending', NOW())";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Complaint submitted successfully.";
+        header("Location: index.php");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

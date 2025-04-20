@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "facebook_clone";
+$dbname = "sdl";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

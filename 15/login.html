@@ -46,10 +46,8 @@
                 messageDiv.textContent = 'Invalid username or password.';
                 return;
             }
-
             // Save logged in user to sessionStorage
             sessionStorage.setItem('loggedInUser', username);
-
             // Redirect to welcome page
             window.location.href = 'welcome.html';
         });

@@ -1,7 +1,3 @@
-/**
- * JavaScript Event Handler Functions Examples
- */
-
 // Click event handler
 function handleClick(event) {
     alert('Element clicked: ' + event.target.id);

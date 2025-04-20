@@ -1,5 +1,4 @@
 # Ruby program to accept user's first and last name and print them in reverse order
-
 print "Enter your first name: "
 first_name = gets.chomp
 
