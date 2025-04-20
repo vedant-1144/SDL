@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Gallery</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .gallery-img:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+        .gallery-caption {
+            text-align: center;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <h1 class="mb-4 text-center">Image Gallery</h1>
+        <div class="row g-3">
+            <div class="col-6 col-md-4 col-lg-3">
+                <img src="https://via.placeholder.com/300x200?text=Image+1" alt="Image 1" class="gallery-img" />
+                <div class="gallery-caption">Image 1</div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <img src="https://via.placeholder.com/300x200?text=Image+2" alt="Image 2" class="gallery-img" />
+                <div class="gallery-caption">Image 2</div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <img src="https://via.placeholder.com/300x200?text=Image+3" alt="Image 3" class="gallery-img" />
+                <div class="gallery-caption">Image 3</div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <img src="https://via.placeholder.com/300x200?text=Image+4" alt="Image 4" class="gallery-img" />
+                <div class="gallery-caption">Image 4</div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <img src="https://via.placeholder.com/300x200?text=Image+5" alt="Image 5" class="gallery-img" />
+                <div class="gallery-caption">Image 5</div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <img src="https://via.placeholder.com/300x200?text=Image+6" alt="Image 6" class="gallery-img" />
+                <div class="gallery-caption">Image 6</div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <img src="https://via.placeholder.com/300x200?text=Image+7" alt="Image 7" class="gallery-img" />
+                <div class="gallery-caption">Image 7</div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <img src="https://via.placeholder.com/300x200?text=Image+8" alt="Image 8" class="gallery-img" />
+                <div class="gallery-caption">Image 8</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

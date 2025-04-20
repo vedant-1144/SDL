@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cookie Example</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 2rem;
+  }
+  label, input, button {
+    font-size: 16px;
+    margin: 0.5rem 0;
+  }
+  #cookieList {
+    margin-top: 1rem;
+    padding: 10px;
+    background: #f4f4f4;
+    border: 1px solid #ccc;
+    max-width: 400px;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+
+<h2>Cookie Creation and Storage Example</h2>
+
+<div>
+  <label for="cookieName">Cookie Name:</label><br />
+  <input type="text" id="cookieName" placeholder="Enter cookie name" />
+</div>
+<div>
+  <label for="cookieValue">Cookie Value:</label><br />
+  <input type="text" id="cookieValue" placeholder="Enter cookie value" />
+</div>
+<button id="setCookieBtn">Set Cookie</button>
+<button id="deleteCookieBtn">Delete Cookie</button>
+
+<h3>Current Cookies:</h3>
+<div id="cookieList">(No cookies set)</div>
+
+<script>
+  const cookieNameInput = document.getElementById('cookieName');
+  const cookieValueInput = document.getElementById('cookieValue');
+  const setCookieBtn = document.getElementById('setCookieBtn');
+  const deleteCookieBtn = document.getElementById('deleteCookieBtn');
+  const cookieList = document.getElementById('cookieList');
+
+  function updateCookieList() {
+    const cookies = document.cookie;
+    cookieList.textContent = cookies ? cookies.replace(/; /g, '\\n') : '(No cookies set)';
+  }
+
+  function setCookie(name, value, days = 7) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+    updateCookieList();
+  }
+
+  function deleteCookie(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    updateCookieList();
+  }
+
+  setCookieBtn.addEventListener('click', () => {
+    const name = cookieNameInput.value.trim();
+    const value = cookieValueInput.value.trim();
+    if (!name) {
+      alert('Please enter a cookie name.');
+      return;
+    }
+    setCookie(name, value);
+  });
+
+  deleteCookieBtn.addEventListener('click', () => {
+    const name = cookieNameInput.value.trim();
+    if (!name) {
+      alert('Please enter a cookie name to delete.');
+      return;
+    }
+    deleteCookie(name);
+  });
+
+  updateCookieList();
+</script>
+
+</body>
+</html>

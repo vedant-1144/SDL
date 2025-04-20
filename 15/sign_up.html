@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <div id="message" class="error"></div>
+        <form id="signUpForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required />
+
+            <input type="submit" value="Sign Up" />
+        </form>
+        <div class="link">
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('signUpForm');
+        const messageDiv = document.getElementById('message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            messageDiv.textContent = '';
+
+            const username = form.username.value.trim();
+            const password = form.password.value;
+            const confirmPassword = form.confirmPassword.value;
+
+            if (username.length < 3) {
+                messageDiv.textContent = 'Username must be at least 3 characters long.';
+                return;
+            }
+
+            if (password.length < 6) {
+                messageDiv.textContent = 'Password must be at least 6 characters long.';
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                messageDiv.textContent = 'Passwords do not match.';
+                return;
+            }
+
+            // Check if username already exists in localStorage
+            if (localStorage.getItem('user_' + username)) {
+                messageDiv.textContent = 'Username already exists. Please choose another.';
+                return;
+            }
+
+            // Save user to localStorage
+            const user = {
+                username: username,
+                password: password
+            };
+            localStorage.setItem('user_' + username, JSON.stringify(user));
+
+            messageDiv.className = 'success';
+            messageDiv.textContent = 'Sign up successful! You can now log in.';
+            form.reset();
+        });
+    </script>
+</body>
+</html>

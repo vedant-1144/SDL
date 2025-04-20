@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JavaScript Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="calculator-screen" id="display" disabled />
+        <div class="calculator-keys">
+            <button class="key" data-action="clear">C</button>
+            <button class="key" data-action="backspace">⌫</button>
+            <button class="key" data-action="divide">÷</button>
+            <button class="key" data-action="multiply">×</button>
+
+            <button class="key" data-digit="7">7</button>
+            <button class="key" data-digit="8">8</button>
+            <button class="key" data-digit="9">9</button>
+            <button class="key" data-action="subtract">−</button>
+
+            <button class="key" data-digit="4">4</button>
+            <button class="key" data-digit="5">5</button>
+            <button class="key" data-digit="6">6</button>
+            <button class="key" data-action="add">+</button>
+
+            <button class="key" data-digit="1">1</button>
+            <button class="key" data-digit="2">2</button>
+            <button class="key" data-digit="3">3</button>
+            <button class="key" data-action="equals">=</button>
+
+            <button class="key zero" data-digit="0">0</button>
+            <button class="key" data-digit=".">.</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

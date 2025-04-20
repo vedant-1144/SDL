@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Notification Popup</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 2rem;
+  }
+  #notifyBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  #notification {
+    visibility: hidden;
+    min-width: 300px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 5px;
+    padding: 15px 20px;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease, visibility 0.5s;
+    z-index: 1000;
+  }
+  #notification.show {
+    visibility: visible;
+    opacity: 1;
+  }
+  #notification .close-btn {
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    line-height: 18px;
+  }
+</style>
+</head>
+<body>
+
+<button id="notifyBtn">Show Notification</button>
+
+<div id="notification">
+  <span class="close-btn" id="closeBtn">&times;</span>
+  <strong>Notification:</strong> This is a sample notification popup.
+</div>
+
+<script>
+  const notifyBtn = document.getElementById('notifyBtn');
+  const notification = document.getElementById('notification');
+  const closeBtn = document.getElementById('closeBtn');
+  let timeoutId;
+
+  function showNotification() {
+    notification.classList.add('show');
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      hideNotification();
+    }, 4000);
+  }
+
+  function hideNotification() {
+    notification.classList.remove('show');
+  }
+
+  notifyBtn.addEventListener('click', showNotification);
+  closeBtn.addEventListener('click', hideNotification);
+</script>
+
+</body>
+</html>
