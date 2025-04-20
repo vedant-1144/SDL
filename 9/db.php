@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "toll_tax_management";
+$dbname = "sdl";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

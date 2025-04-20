@@ -6,6 +6,83 @@ include 'db.php';
 <html>
 <head>
     <title>Complaint Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 30px;
+        }
+
+        h1 {
+            color:rgb(222, 47, 24);
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 90%;
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <h1>Submit a Complaint</h1>
@@ -23,7 +100,7 @@ include 'db.php';
     </form>
     <br>
     
-    <table border="1" cellpadding="10" cellspacing="0">
+    <table border="5" cellpadding="10"> 
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -34,7 +111,7 @@ include 'db.php';
         </tr>
 
         <?php
-        $result = $conn->query("SELECT * FROM complaints ORDER BY created_at DESC");
+        $result = $conn->query("SELECT * FROM complaints");
         if ($result->num_rows > 0) {       
             while($row = $result->fetch_assoc()) {
             echo "
