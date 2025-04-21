@@ -1,38 +1,31 @@
 <?php
+include 'db.php';
 session_start();
-require 'db.php';
-
-// Fetch products from database
-$sql = "SELECT * FROM products";
-$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Ubercart - Product Listing</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+<head><title>Simple eCommerce</title></head>
 <body>
-    <h1>Ubercart - Products</h1>
-    <a href="cart.php">View Cart (<?php echo isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; ?>)</a>
-    <div class="products">
-        <?php
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                ?>
-                <div class="product">
-                    <h3><?php echo htmlspecialchars($row['name']); ?></h3>
-                    <p><?php echo htmlspecialchars($row['description']); ?></p>
-                    <p>Price: $<?php echo number_format($row['price'], 2); ?></p>
-                    <a href="product.php?id=<?php echo $row['id']; ?>">View Details</a>
-                </div>
-                <?php
-            }
-        } else {
-            echo "<p>No products found.</p>";
-        }
-        ?>
-    </div>
+  <h2>🛒 Product Catalog</h2>
+
+  <a href="cart.php">View Cart</a>
+  <a href="add_product.php">Add Product</a>
+  <hr>
+
+  <?php
+  $result = $conn->query("SELECT * FROM products");
+  while ($row = $result->fetch_assoc()) {
+    echo "<div>";
+    echo "<h3>{$row['name']}</h3>";
+    echo "<p>{$row['description']}</p>";
+    echo "<p>Price: ₹{$row['price']}</p>";
+    echo "<form method='POST' action='add_to_cart.php'>
+            <input type='hidden' name='id' value='{$row['id']}'>
+            <input type='submit' value='Add to Cart'>
+          </form>";
+    echo "<hr></div>";
+  }
+  ?>
 </body>
 </html>
