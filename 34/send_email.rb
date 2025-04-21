@@ -1,14 +1,14 @@
 require 'net/smtp'
 
-# Configuration - update these with your SMTP server details and credentials
-SMTP_SERVER = 'smtp.example.com'
+# Configuration
+SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
-SMTP_DOMAIN = 'example.com'
-SMTP_USER = 'your_email@example.com'
-SMTP_PASSWORD = 'your_password'
+SMTP_DOMAIN = 'gmail.com'
+SMTP_USER = 'extracc0365@gmail.com'
+SMTP_PASSWORD = 'wwwgeflkgtyflyjq'
 
 FROM_EMAIL = SMTP_USER
-TO_EMAIL = 'recipient@example.com'  # Change to the recipient's email address
+TO_EMAIL = 'example@gmail.com'
 
 SUBJECT = 'Test Email from Ruby Script'
 BODY = <<~EOF
@@ -29,7 +29,9 @@ message = <<~MESSAGE_END
 MESSAGE_END
 
 begin
-  Net::SMTP.start(SMTP_SERVER, SMTP_PORT, SMTP_DOMAIN, SMTP_USER, SMTP_PASSWORD, :plain) do |smtp|
+  smtp = Net::SMTP.new(SMTP_SERVER, SMTP_PORT)
+  smtp.enable_starttls # <- This line is essential for STARTTLS
+  smtp.start(SMTP_DOMAIN, SMTP_USER, SMTP_PASSWORD, :plain) do |smtp|
     smtp.send_message message, FROM_EMAIL, TO_EMAIL
   end
   puts "Email sent successfully to #{TO_EMAIL}"
