@@ -1,23 +1,22 @@
--- Database schema for users and books
+CREATE DATABASE book_store;
 
-CREATE DATABASE IF NOT EXISTS books_catalog;
-USE books_catalog;
+USE book_store;
 
--- Users table
-CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100)
 );
 
--- Books table
-CREATE TABLE IF NOT EXISTS books (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    author VARCHAR(255) NOT NULL,
-    description TEXT,
-    published_year YEAR,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE books (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255),
+  author VARCHAR(255),
+  price DECIMAL(10, 2)
 );
+
+-- Sample data
+INSERT INTO books (title, author, price) VALUES
+('The Alchemist', 'Paulo Coelho', 299.99),
+('Atomic Habits', 'James Clear', 399.50),
+('1984', 'George Orwell', 199.00);

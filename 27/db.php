@@ -1,13 +1,11 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = ""; // Update with your MySQL password if any
-$dbname = "books_catalog";
+$host = "localhost";
+$db = "book_store";
+$user = "root";
+$pass = "";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($host, $user, $pass, $db);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
