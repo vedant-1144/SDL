@@ -1,5 +1,4 @@
 <?php
-// Include database connection
 include 'db.php';
 ?>
 
@@ -13,7 +12,7 @@ include 'db.php';
             margin: 40px;
             background-color: #f4f4f4;
         }
-        .container {
+        .container {    
             background-color: white;
             padding: 20px;
             max-width: 600px;

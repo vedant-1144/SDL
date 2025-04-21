@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cricket Data Signup/Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e8f0fe;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0b74de;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #095cb2;
+    }
+    .welcome {
+      text-align: center;
+      font-size: 22px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sign Up -->
+<div class="container" id="signup-container">
+  <h2>Cricket Data - Sign Up</h2>
+  <form id="registration">
+    <input type="text" id="name" placeholder="Full Name" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <input type="text" id="number" placeholder="Phone Number" required />
+    <input type="text" id="zipcode" placeholder="Zip Code" required />
+    <button type="submit">Sign Up</button>
+  </form>
+</div>
+
+<!-- Login -->
+<div class="container" id="login-container" style="display: none;">
+  <h2>Cricket Data - Login</h2>
+  <input type="email" id="login-email" placeholder="Email" required />
+  <input type="password" id="login-password" placeholder="Password" required />
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- Welcome -->
+<div class="container" id="welcome-container" style="display: none;">
+  <div class="welcome" id="welcome-message"></div>
+</div>
+
+<script>
+  const form = document.getElementById("registration");
+  const nameInput = document.getElementById("name");
+  const passwordInput = document.getElementById("password");
+  const emailInput = document.getElementById("email");
+  const phoneInput = document.getElementById("number");
+  const zipcodeInput = document.getElementById("zipcode");
+
+  let storedUser = {};
+
+  function isValidName(name) {
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    return nameRegex.test(name);
+  }
+
+  function isValidEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
+
+  function isValidPassword(password) {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  }
+
+  function isValidPhone(phone) {
+    const phoneRegex = /^[6-9]\d{9}$/;
+    return phoneRegex.test(phone);
+  }
+
+  function isValidZipcode(zipcode) {
+    const zipcodeRegex = /^\d{6}$/;
+    return zipcodeRegex.test(zipcode);
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let valid = true;
+    let errorMessage = "";
+
+    if (!isValidName(nameInput.value)) {
+      valid = false;
+      errorMessage += "Invalid name! Only alphabets and spaces allowed.\n";
+    }
+
+    if (!isValidEmail(emailInput.value)) {
+      valid = false;
+      errorMessage += "Invalid email format!\n";
+    }
+
+    if (!isValidPassword(passwordInput.value)) {
+      valid = false;
+      errorMessage += "Password must be at least 8 characters, include 1 uppercase letter, 1 number, and 1 special character.\n";
+    }
+
+    if (!isValidPhone(phoneInput.value)) {
+      valid = false;
+      errorMessage += "Invalid phone number! It must be a 10-digit number starting with 6-9.\n";
+    }
+
+    if (!isValidZipcode(zipcodeInput.value)) {
+      valid = false;
+      errorMessage += "Invalid zip code! It must be a 6-digit number.\n";
+    }
+
+    if (!valid) {
+      alert(errorMessage);
+      return;
+    }
+
+    // Store the user details temporarily
+    storedUser = {
+      name: nameInput.value,
+      email: emailInput.value,
+      password: passwordInput.value
+    };
+
+    // Go to login form
+    document.getElementById("signup-container").style.display = "none";
+    document.getElementById("login-container").style.display = "block";
+  });
+
+  function login() {
+    const loginEmail = document.getElementById("login-email").value;
+    const loginPassword = document.getElementById("login-password").value;
+
+    if (
+      loginEmail === storedUser.email &&
+      loginPassword === storedUser.password
+    ) {
+      document.getElementById("login-container").style.display = "none";
+      document.getElementById("welcome-container").style.display = "block";
+      document.getElementById("welcome-message").textContent =
+        "Welcome to Cricket Data, " + storedUser.name + "!";
+    } else {
+      alert("Invalid credentials! Please try again.");
+    }
+  }
+</script>
+
+</body>
+</html>
