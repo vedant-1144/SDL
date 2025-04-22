@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gmail Registration</title>
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        .form-box {
+            width: 320px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: -5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-box">
+        <h2>Gmail Sign Up</h2>
+        <form onsubmit="return validateForm()">
+            <label>First Name</label>
+            <input type="text" id="fname" />
+            <div class="error" id="fnameError"></div>
+
+            <label>Last Name</label>
+            <input type="text" id="lname" />
+            <div class="error" id="lnameError"></div>
+
+            <label>Username</label>
+            <input type="text" id="username" />
+            <div class="error" id="usernameError"></div>
+
+            <label>Password</label>
+            <input type="password" id="password" />
+            <div class="error" id="passwordError"></div>
+
+            <label>Confirm Password</label>
+            <input type="password" id="confirmPassword" />
+            <div class="error" id="confirmPasswordError"></div>
+
+            <label>Phone Number</label>
+            <input type="text" id="phone" />
+            <div class="error" id="phoneError"></div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let valid = true;
+
+            // Clear previous errors
+            document.getElementById("fnameError").innerText = "";
+            document.getElementById("lnameError").innerText = "";
+            document.getElementById("usernameError").innerText = "";
+            document.getElementById("passwordError").innerText = "";
+            document.getElementById("confirmPasswordError").innerText = "";
+            document.getElementById("phoneError").innerText = "";
+
+            // Get values
+            let fname = document.getElementById("fname").value.trim();
+            let lname = document.getElementById("lname").value.trim();
+            let username = document.getElementById("username").value.trim();
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            let phone = document.getElementById("phone").value.trim();
+
+            // First Name
+            if (fname === "") {
+                document.getElementById("fnameError").innerText = "First name is required.";
+                valid = false;
+            }
+
+            // Last Name
+            if (lname === "") {
+                document.getElementById("lnameError").innerText = "Last name is required.";
+                valid = false;
+            }
+
+            // Username
+            if (username === "") {
+                document.getElementById("usernameError").innerText = "Username is required.";
+                valid = false;
+            }
+
+            // Password
+            if (password.length < 6) {
+                document.getElementById("passwordError").innerText = "Password must be at least 6 characters.";
+                valid = false;
+            }
+
+            // Confirm Password
+            if (confirmPassword !== password) {
+                document.getElementById("confirmPasswordError").innerText = "Passwords do not match.";
+                valid = false;
+            }
+
+            // Phone
+            let phonePattern = /^[0-9]{10}$/;
+            if (!phone.match(phonePattern)) {
+                document.getElementById("phoneError").innerText = "Enter a valid 10-digit phone number.";
+                valid = false;
+            }
+
+            if(valid) alert("Form Submitted Successfully !!");
+            return valid;
+        }
+    </script>
+
+</body>
+
+</html>

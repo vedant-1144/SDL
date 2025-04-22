@@ -13,6 +13,9 @@ const farewell = "Goodbye!";
 // Program that tells time of the day (morning, afternoon, night)
 const now = new Date();
 const hour = now.getHours();
+const minute = now.getMinutes();
+const second = now.getSeconds();
+const currentTime = `${hour}:${minute}:${second}`;
 let timeOfDay;
 
 if (hour >= 5 && hour < 12) {
@@ -29,6 +32,7 @@ outputDiv.innerHTML = `
     <p>Average number of weeks in a human lifetime: <strong>${averageWeeks}</strong></p>
     <p>Greeting message: <strong>${greeting}</strong></p>
     <p>Farewell message: <strong>${farewell}</strong></p>
+    <p>Current time of day: <strong>${currentTime}</strong></p>
     <p>Good <strong>${timeOfDay}</strong>!</p>
 `;
 document.body.appendChild(outputDiv);

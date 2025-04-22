@@ -4,7 +4,7 @@ require 'net/smtp'
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
 SMTP_DOMAIN = 'gmail.com'
-SMTP_USER = 'extracc0365@gmail.com'
+SMTP_USER = 'example@gmail.com'
 SMTP_PASSWORD = 'wwwgeflkgtyflyjq'
 
 FROM_EMAIL = SMTP_USER
