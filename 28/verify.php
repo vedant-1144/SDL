@@ -1,40 +1,37 @@
 <?php
-require 'db.php';
-
-$message = '';
-
-if (isset($_GET['token'])) {
-    $token = $_GET['token'];
-
-    // Find user with the token
-    $stmt = $pdo->prepare("SELECT id, is_verified FROM users WHERE verification_token = ?");
-    $stmt->execute([$token]);
-    $user = $stmt->fetch();
-
-    if ($user) {
-        if ($user['is_verified']) {
-            $message = 'Your email is already verified.';
-        } else {
-            // Update user to verified
-            $stmt = $pdo->prepare("UPDATE users SET is_verified = 1 WHERE id = ?");
-            $stmt->execute([$user['id']]);
-            $message = 'Your email has been successfully verified!';
-        }
-    } else {
-        $message = 'Invalid verification token.';
-    }
-} else {
-    $message = 'No verification token provided.';
-}
+$email = $_GET['email'];
+$token = $_GET['token'];
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Email Verification</title>
+    <title>Verify Your Email</title>
+    <style>
+        .verify-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            margin: 50px auto;
+            box-shadow: 0 0 10px #ccc;
+            text-align: center;
+        }
+        .verify-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background: rgb(80, 133, 33);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Email Verification</h2>
-    <p><?php echo htmlspecialchars($message); ?></p>
+    <div class="verify-box">
+        <h2>Registration Successful!</h2>
+        <p>Please click the link below to verify your email address:</p>
+        <a href="home.php?token=<?php echo $token; ?>" class="verify-link">Verify Email</a>
+    </div>
 </body>
 </html>

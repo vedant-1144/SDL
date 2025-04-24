@@ -34,7 +34,7 @@ $row = $result->fetch_assoc();
     <hr>
     <a href="index.php">Back to Home</a>
 </body>
-</html>`
+</html>
 <?php
 $conn->close();
 ?>

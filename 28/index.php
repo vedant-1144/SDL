@@ -1,43 +1,23 @@
 <?php
-require 'db.php';
+$conn = new mysqli("localhost", "root", "", "phpmail");
 
-$message = '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $result = $conn->query("SELECT id FROM users WHERE email = '$email' ");
+    if ($result->num_rows > 0) {
+        echo "Email already registered!";
+        exit;
+    }
+    
+    $token = bin2hex(random_bytes(16)); // 32-character token
+    $sql = "INSERT INTO users (name, email, token) VALUES ('$name', '$email', '$token')";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $password = $_POST['password'];
-
-    if (!$email) {
-        $message = 'Invalid email address.';
-    } elseif (empty($password)) {
-        $message = 'Password is required.';
+    if ($conn->query($sql) === TRUE) {
+        header("Location: verify.php?token=$token");
+        exit;
     } else {
-        // Check if email already exists
-        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->execute([$email]);
-        if ($stmt->fetch()) {
-            $message = 'Email is already registered.';
-        } else {
-            // Generate verification token
-            $token = bin2hex(random_bytes(32));
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-            // Insert user into database
-            $stmt = $pdo->prepare("INSERT INTO users (email, password, verification_token) VALUES (?, ?, ?)");
-            $stmt->execute([$email, $hashed_password, $token]);
-
-            // Send verification email
-            $verification_link = "http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/verify.php?token=$token";
-            $subject = "Email Verification";
-            $body = "Please click the following link to verify your email: $verification_link";
-            $headers = "From: no-reply@example.com";
-
-            if (mail($email, $subject, $body, $headers)) {
-                $message = 'Registration successful! Please check your email to verify your account.';
-            } else {
-                $message = 'Failed to send verification email.';
-            }
-        }
+        echo "Error: " . $conn->error;
     }
 }
 ?>
@@ -45,19 +25,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Email Verification Registration</title>
+    <title>Email Verification</title>
+    <style>
+        .form-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            margin: auto;
+            box-shadow: 0 0 10px #ccc;
+        }
+        .form-box h2 {
+            text-align: center;
+        }
+        .form-box input, .form-box button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px auto;
+        }
+        .form-box button {
+            background:rgb(80, 133, 33);
+            color: white;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <h2>Register</h2>
-    <?php if ($message): ?>
-        <p><?php echo htmlspecialchars($message); ?></p>
-    <?php endif; ?>
-    <form method="post" action="">
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
-        <button type="submit">Register</button>
-    </form>
+    <div class="form-box">
+        <h2>Register</h2>
+        <form method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
 </body>
 </html>
